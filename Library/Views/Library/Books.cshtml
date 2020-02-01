@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Книги";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Номер</th>
+            <th>Название</th>
+            <th>Тип</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in ViewBag.Books)
+        {
+            <tr>
+                <td>@book.BookId</td>
+                <td>@book.BookName</td>
+                <td>@book.BookType</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Клиенты";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<table>
+    <thead>
+        <tr>
+            <th>Идентификатор</th>
+            <th>ФИО</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in ViewBag.Clients)
+        {
+            <tr>
+                <td>@client.ClientId</td>
+                <td>@client.ClientName</td>
+            </tr>
+        }
+    </tbody>
+</table>
