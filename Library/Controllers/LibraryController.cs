@@ -9,6 +9,9 @@ namespace Library.Controllers
 {
     public class LibraryController : Controller
     {
+        private LibraryContext context;
+
+        public LibraryController(LibraryContext ctx) => context = ctx;
         // GET: /<controller>/
         public IActionResult Index()
         {
@@ -16,23 +19,47 @@ namespace Library.Controllers
         }
         public IActionResult Books()
         {
-            List<Book> books = new List<Book>();
-            books.Add(new Book() { BookId = 1, BookName = "Чистый код", BookType = "Учебная" });
-            books.Add(new Book() { BookId = 2, BookName = "Гиперион", BookType = "Развлекательная" });
-            ViewBag.Books = books;
-            ViewData["Message"] = "Список Книг";
+            if (context.Books.Any())
+            {
+                return View(context.Books);
+            }
+            else
+            {
+                var books = new List<Book>()
+                {
+                    new Book() { BookId = 1, BookName = "CLR via C#", BookType = "Учебная" },
+                    new Book() { BookId = 2, BookName = "Воин", BookType = "Развлекательная" },
+                };
 
-            return View();
+                context.Books.AddRange(books);
+                context.SaveChanges();
+
+                ViewData["Message"] = "Список Книг";
+
+                return View(context.Books);
+            }
         }
         public IActionResult Clients()
         {
-            List<Client> clients = new List<Client>();
-            clients.Add(new Client() { ClientId = 1, ClientName = "Иванов Иван Иванович" });
-            clients.Add(new Client() { ClientId = 2, ClientName = "Петров Петр Петрович" });
-            ViewBag.Clients = clients;
-            ViewData["Message"] = "Список клиентов библиотеки";
+            if (context.Clients.Any())
+            {
+                return View(context.Clients);
+            }
+            else
+            {
+                var clients = new List<Client>()
+                {
+                    new Client() { ClientId = 1, ClientName = "Иванов Максим Иванович" },
+                    new Client() { ClientId = 2, ClientName = "Петров Евгений Петрович" },
+                };
 
-            return View();
+                context.Clients.AddRange(clients);
+                context.SaveChanges();
+
+                ViewData["Message"] = "Список клиентов библиотеки";
+
+                return View(context.Clients);
+            }
         }
     }
 }
