@@ -11,5 +11,7 @@ namespace Library.Models
         public string BookName { get; set; }
         public string BookType { get; set; }
         public int? WithClientId { get; set; }
+
+        public virtual Client Client { get; set; }
     }
 }

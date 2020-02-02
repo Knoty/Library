@@ -10,5 +10,7 @@ namespace Library.Models
         public int ClientId { get; set; }
         public string ClientName { get; set; }
         public int? TakenBookId { get; set; }
+
+        public virtual ICollection<Book> Books { get; set; }
     }
 }
