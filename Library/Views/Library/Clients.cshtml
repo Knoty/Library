@@ -1,24 +1,47 @@
 ﻿@model IEnumerable<Library.Models.Client>
 @{
-    ViewData["Title"] = "Клиенты";
+    ViewData["Title"] = "Пользователи";
 }
 
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<table>
+<table class="table">
     <thead>
         <tr>
-            <th>Идентификатор</th>
-            <th>ФИО</th>
+            <th>
+                Регистрационный номер
+            </th>
+            <th>
+                ФИО
+            </th>
+            <th>
+                Имеются взятые книги
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Library.Models.Client client in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@client.ClientId</td>
-                <td>@client.ClientName</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClientName)
+                </td>
+                @if (item.TakenBookId != null)
+                {
+                    <td>
+                        Да
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Нет
+                    </td>
+                }
             </tr>
         }
     </tbody>
