@@ -38,5 +38,15 @@ namespace Library.Controllers
         {
             return View(context.Clients);
         }
+
+        public IActionResult AddClient() => View();
+
+        [HttpPost]
+        public IActionResult AddClient(Client client)
+        {
+            context.Clients.Add(client);
+            context.SaveChanges();
+            return RedirectToAction(nameof(Clients));
+        }
     }
 }
