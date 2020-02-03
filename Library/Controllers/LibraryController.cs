@@ -12,54 +12,31 @@ namespace Library.Controllers
         private LibraryContext context;
 
         public LibraryController(LibraryContext ctx) => context = ctx;
+
         // GET: /<controller>/
         public IActionResult Index()
         {
             return View();
         }
+
         public IActionResult Books()
         {
-            if (context.Books.Any())
-            {
-                return View(context.Books);
-            }
-            else
-            {
-                var books = new List<Book>()
-                {
-                    new Book() { BookId = 1, BookName = "CLR via C#", BookType = "Учебная" },
-                    new Book() { BookId = 2, BookName = "Воин", BookType = "Развлекательная" },
-                };
-
-                context.Books.AddRange(books);
-                context.SaveChanges();
-
-                ViewData["Message"] = "Список Книг";
-
-                return View(context.Books);
-            }
+            return View(context.Books);
         }
+
+        public IActionResult AddBook() => View();
+
+        [HttpPost]
+        public IActionResult AddBook(Book book)
+        {
+            context.Books.Add(book);
+            context.SaveChanges();
+            return RedirectToAction(nameof(Books));
+        }
+        
         public IActionResult Clients()
         {
-            if (context.Clients.Any())
-            {
-                return View(context.Clients);
-            }
-            else
-            {
-                var clients = new List<Client>()
-                {
-                    new Client() { ClientId = 1, ClientName = "Иванов Максим Иванович" },
-                    new Client() { ClientId = 2, ClientName = "Петров Евгений Петрович" },
-                };
-
-                context.Clients.AddRange(clients);
-                context.SaveChanges();
-
-                ViewData["Message"] = "Список клиентов библиотеки";
-
-                return View(context.Clients);
-            }
+            return View(context.Clients);
         }
     }
 }

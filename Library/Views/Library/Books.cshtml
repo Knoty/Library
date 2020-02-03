@@ -4,24 +4,54 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<table>
+<p>
+    <a asp-action="AddBook">Внести новую книгу</a>
+</p>
+<table class="table">
     <thead>
         <tr>
-            <th>Номер</th>
-            <th>Название</th>
-            <th>Тип</th>
+            <th>
+                Каталожный номер
+            </th>
+            <th>
+                Название
+            </th>
+            <th>
+                Тип
+            </th>
+            <th>
+                Местонахождение
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Library.Models.Book book in Model)
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>@book.BookId</td>
-                <td>@book.BookName</td>
-                <td>@book.BookType</td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BookType)
+            </td>
+            @if (item.WithClientId != null)
+            {
+                <td>
+                    На руках
+                </td>
+            }
+            else
+            {
+                <td>
+                    В библиотеке
+                </td>
+            }
+        </tr>
         }
     </tbody>
 </table>
